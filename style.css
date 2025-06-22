@@ -92,11 +92,9 @@ body {
     width: 100%;
     color: white;
     font-size: 20px;
-    padding: 10px 20px 10px 0;
     background-color: unset;
     border: none;
     outline: none;
-    border-bottom: 1px solid white;
 }
 
 .weather-search-input::placeholder {
@@ -129,6 +127,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: white;
 }
 
 .weather-aside-subtitle {
@@ -145,4 +144,146 @@ body {
     gap: 26px;
 }
 
+.weather-degrees-sublock {
+    display: flex;
+    align-items: center;
+}
+
+.weather-search-label {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid white;
+}
+
+.weather-search-label.mobile {
+    display: none;
+}
+
+.search-icon, .search-icon img {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
 /* end main styles */
+
+@media (max-width: 1024px) {
+    .main {
+        height: 100%;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .weather-aside {
+        position: static;
+        width: calc(100% + 40px);
+        padding: 40px;
+        border-left: none;
+        border-top: 5px solid #ffffff24;
+        margin: 0 -20px;
+        display: flex;
+        justify-content: center;
+        height: 50%;
+        max-height: 50%;
+    }
+
+    .weather-aside-info {
+        padding: 0;
+    }
+
+    .weather-search-input:not(.weather-mobile-input) {
+        display: none;
+    }
+
+    .weather-search-label {
+        display: none;
+    }
+
+    .weather-search-label.mobile {
+        width: 305px;
+        display: flex;
+        margin-top: 15px;
+    }
+
+    .weather-mobile-input {
+        font-size: 18px;
+    }
+
+    .weather-aside-title {
+        text-align: center;
+    }
+
+    .weather-degrees-block {
+        height: 50%;
+        align-items: end;
+    }
+
+    .weather-degrees {
+        font-size: 120px;
+    }
+
+    .weather-degrees-info-city {
+        font-size: 48px;
+    }
+
+    .weather-degrees-info-date {
+        font-size: 16px;
+    }
+
+    .search-icon, .search-icon img {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    .weather-degrees {
+        font-size: 64px;
+    }
+
+    .weather-degrees-info-block {
+        margin: 0 0 0 10px;
+    }
+
+    .weather-degrees-info-city {
+        font-size: 30px;
+    }
+
+    .weather-degrees-info-date {
+        font-size: 10px;
+    }
+    
+    .weather-degrees-info-icon {
+        widows: 40px;
+    }
+
+    .weather-search-label.mobile {
+        width: 125px;
+        padding: 0;
+    }
+
+    .weather-search-label input {
+        font-size: 12px;
+    }
+
+    .weather-aside-title {
+        font-size: 14px;      
+    }
+
+    .weather-aside-subtitle {
+        font-size: 14px;
+    }
+
+    .weather-aside-description {
+        font-size: 14px;
+        font-weight: 400;
+        gap: 15px;
+    }
+
+    .search-icon, .search-icon img {
+        width: 12px;
+    }
+}
