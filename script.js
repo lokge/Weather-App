@@ -3,6 +3,7 @@ let searchCityInput = document.getElementById("search-city")
 let mobileSearchCityInput = document.getElementById("mobile-search-city")
 let searchBtn = document.getElementById("search-btn")
 let mobileSearchBtn = document.getElementById("mobile-search-btn")
+let autoCompleteList = document.getElementsByClassName("search-city-autocomplete")[0]
 
 const months = [
     "January", "February", "March", "April", "May", "June",
@@ -161,5 +162,44 @@ async function getWeather(city) {
     }
 }
 
+
+
+//cities autocomplete
+
+let cities = [];
+fetch('cities.json')
+    .then(response => response.json())
+    .then(data => {
+        cities = data;
+    })
+    .catch(error => console.error('Ошибка загрузки JSON:', error));
+
+searchCityInput.addEventListener("input", function(event) {
+    const input = this.value.toLowerCase();
+    autoCompleteList.innerHTML = '';
+    autoCompleteList.classList.add('active');
+
+    const matches = cities.filter(city => city.toLowerCase().startsWith(input)).slice(0, 5);
+
+    matches.forEach(city => {
+        const li = document.createElement("li");
+        li.classList.add('search-city-autocomplete-item')
+        li.textContent = city;
+        li.addEventListener("click", () => {
+            searchCityInput.value = city;
+            autoCompleteList.innerHTML = '';
+            autoCompleteList.classList.remove('active');
+        });
+        autoCompleteList.append(li);
+    });
+});
+
+document.addEventListener("click", function(event) {
+    if (autoCompleteList.classList.contains('active') && !autoCompleteList.contains(event.target) && event.target !== searchCityInput) {
+        autoCompleteList.classList.remove('active');
+    }
+});
+
+//cities autocomplete end
 
 getWeather('Bishkek')

@@ -154,6 +154,33 @@ body {
     display: flex;
     align-items: center;
     border-bottom: 1px solid white;
+    position: relative;
+}
+
+.search-city-autocomplete {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 120%;
+    background-color: white;
+    border-radius: 10px;
+    display: none;
+    overflow: hidden;
+}
+
+.search-city-autocomplete.active {
+    display: block;
+}
+
+.search-city-autocomplete-item {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-top: 1px solid #e8e8e8;
+    transition: 0.3s;
+}
+
+.search-city-autocomplete-item:hover {
+    background-color: #e1e1e1;
 }
 
 .weather-search-label.mobile {
