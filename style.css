@@ -36,6 +36,47 @@ body {
     background-image: url('./images/weather-backgrounds/lightning.jpg');
 }
 
+.alert {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%);
+    padding: 12px 50px;
+    color: white;
+    border-radius: 5px;
+    z-index: 1000;
+    transition: all 0.7s ease-in-out;
+}
+
+.alert-message {
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 16px;
+}
+
+.alert.visible {
+    opacity: 1;
+    top: 30px;
+    transition: all 0.7s ease-in-out;
+}
+
+.alert.success {
+    background-color: #4CAF50;
+}
+
+.alert.error {
+    background-color: #f44336;
+}
+
+.alert.info {
+    background-color: #2196F3;
+}
+
+.alert.warning {
+    background-color: #ff9800;
+}
+
 .container {
     height: 100%;
     max-width: 1440px;
@@ -156,6 +197,10 @@ body {
     border-bottom: 1px solid white;
 }
 
+.weather-search-label.error {
+    border-color: #f44336;
+}
+
 .weather-search-label.mobile {
     display: none;
 }
@@ -171,6 +216,14 @@ body {
 @media (max-width: 1024px) {
     .main {
         height: 100%;
+    }
+
+    .alert {
+        padding: 10px 30px;
+    }
+
+    .alert-message {
+        font-size: 14px;
     }
 
     .container {
