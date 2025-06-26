@@ -1,0 +1,23 @@
+[
+    "Bishkek", "Almaty", "Tashkent", "Kyiv",
+    "Moscow", "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", 
+    "San Francisco", "Dallas", "Washington D.C.", "Boston", "Seattle",
+    "Berlin", "Munich", "Hamburg", "Frankfurt", "Cologne", 
+    "Stuttgart", "Düsseldorf", "Dortmund", "Essen", "Leipzig",
+    "London", "Manchester", "Birmingham", "Liverpool", "Edinburgh", 
+    "Glasgow", "Bristol", "Leeds", "Sheffield", "Nottingham",
+    "Paris", "Marseille", "Lyon", "Toulouse", "Nice", 
+    "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille",
+    "Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza", 
+    "Malaga", "Murcia", "Palma de Mallorca", "Las Palmas", "Bilbao",
+    "Rome", "Milan", "Naples", "Turin", "Palermo", 
+    "Genoa", "Bologna", "Florence", "Venice", "Catania",
+    "Tokyo", "Osaka", "Yokohama", "Nagoya", "Sapporo", 
+    "Fukuoka", "Kobe", "Hiroshima", "Sendai", "Kawasaki",
+    "Seoul", "Busan", "Incheon", "Daegu", "Daejeon", 
+    "Gwangju", "Suwon", "Ulsan", "Changwon", "Goyang",
+    "Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Chengdu", 
+    "Hong Kong", "Xi’an", "Hangzhou", "Wuhan", "Chongqing",
+    "New Delhi", "Mumbai", "Kolkata", "Chennai", "Bangalore", 
+    "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow"
+]
