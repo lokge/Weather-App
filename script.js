@@ -1,11 +1,11 @@
-let apiKey = `eb0c3316618dee8ac54aab06c8526522`
-let searchCityInput = document.getElementById("search-city")
-let mobileSearchCityInput = document.getElementById("mobile-search-city")
-let searchBtn = document.getElementById("search-btn")
-let mobileSearchBtn = document.getElementById("mobile-search-btn")
-let alertContainer = document.getElementById("alert")
-let alertText = document.getElementsByClassName("alert-message")[0]
-let autoCompleteList = document.getElementsByClassName("search-city-autocomplete")[0]
+const apiKey = `eb0c3316618dee8ac54aab06c8526522`
+const searchCityInput = document.getElementById("search-city")
+const mobileSearchCityInput = document.getElementById("mobile-search-city")
+const searchBtn = document.getElementById("search-btn")
+const mobileSearchBtn = document.getElementById("mobile-search-btn")
+const alertContainer = document.getElementById("alert")
+const alertText = document.getElementsByClassName("alert-message")[0]
+const autoCompleteList = document.getElementsByClassName("search-city-autocomplete")[0]
 
 const months = [
     "January", "February", "March", "April", "May", "June",
@@ -148,7 +148,7 @@ function renderWeather(mainBlock, mainAside, weatherData) {
     const oldUl = mainAside.querySelector('.weather-aside-info');
     if (oldUl) oldUl.remove();
 
-    let $main = document.querySelector('.main');
+    const $main = document.querySelector('.main');
     $main.className = 'main';
 
     switch (weatherData.weather[0].main) {
@@ -236,7 +236,7 @@ fetch('cities.json')
     })
     .catch(error => console.error('Ошибка загрузки JSON:', error));
 
-searchCityInput.addEventListener("input", function(event) {
+searchCityInput.addEventListener("input", function() {
     const input = this.value.toLowerCase();
     autoCompleteList.innerHTML = '';
     autoCompleteList.classList.add('active');
@@ -268,7 +268,7 @@ document.addEventListener("click", function(event) {
 if (!localStorage.getItem('lastSearchedCity') && navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
         getWeather('', position.coords.latitude, position.coords.longitude);
-    }, (error) => {
+    }, () => {
         getWeather(localStorage.getItem('lastSearchedCity') || 'Bishkek'); //on error or user denied, use last searched city or default
     })
 } else {
