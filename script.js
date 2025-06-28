@@ -264,4 +264,13 @@ document.addEventListener("click", function(event) {
 
 //cities autocomplete end
 
-getWeather(localStorage.getItem('lastSearchedCity') || 'Bishkek'); // Default city if no last search is saved
+//get weather with location
+if (!localStorage.getItem('lastSearchedCity') && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+        getWeather('', position.coords.latitude, position.coords.longitude);
+    }, (error) => {
+        getWeather(localStorage.getItem('lastSearchedCity') || 'Bishkek'); //on error or user denied, use last searched city or default
+    })
+} else {
+    getWeather(localStorage.getItem('lastSearchedCity') || 'Bishkek'); // Default city if no last search is saved
+}
