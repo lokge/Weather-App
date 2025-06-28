@@ -6,31 +6,14 @@ on:
   pull_request:
     branches: ["master"]
 
-permissions:
-  contents: read
-
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
     steps:
-      - name: Setup repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      # Удалено: установка Deno (не нужен, если не используешь Deno API, Deno тесты или линтер)
-      # - name: Setup Deno
-      #   uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31
-      #   with:
-      #     deno-version: v1.x
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v1.x
 
-      # Удалено: форматирование (не актуально без Deno/TS)
-      # - name: Verify formatting
-      #   run: deno fmt --check
-
-      # Удалено: линтер Deno (не подходит для обычного frontend-проекта)
-      # - name: Run linter
-      #   run: deno lint
-
-      # Удалено: тесты Deno (в проекте их нет)
-      # - name: Run tests
-      #   run: deno test -A
+      # Линтинг и тесты отключены, т.к. у тебя пока их нет
