@@ -3,6 +3,8 @@ let searchCityInput = document.getElementById("search-city")
 let mobileSearchCityInput = document.getElementById("mobile-search-city")
 let searchBtn = document.getElementById("search-btn")
 let mobileSearchBtn = document.getElementById("mobile-search-btn")
+let alertContainer = document.getElementById("alert")
+let alertText = document.getElementsByClassName("alert-message")[0]
 let autoCompleteList = document.getElementsByClassName("search-city-autocomplete")[0]
 
 const months = [
@@ -33,27 +35,86 @@ const weekDays = {
     4: 'Thursday', 5: 'Friday', 6: 'Saturday'
 };
 
+const notificationTypes = ['info', 'error', 'success', 'warning'];
+let alertTimeoutId;
+
+function callNotification(type = 'info', message = 'An error occurred', timer = 3000) {
+    notificationTypes.forEach(t => alertContainer.classList.remove(t));
+    alertContainer.classList.add(type);
+    alertText.textContent = message;
+
+    alertContainer.classList.add('visible');
+
+    if (alertTimeoutId) {
+        clearTimeout(alertTimeoutId);
+    }
+
+    alertTimeoutId = setTimeout(() => {
+        alertContainer.classList.remove('visible');
+        alertContainer.classList.remove(type);
+    }, timer);
+};
+
+alertContainer.addEventListener('click', function() {
+    alertContainer.classList.remove('visible');
+    notificationTypes.forEach(t => alertContainer.classList.remove(t));
+});
+
+function saveLastSearch(city = '') {
+    if (city != '') {
+        localStorage.setItem('lastSearchedCity', city);
+    }
+};
+
 searchBtn.addEventListener("click", function() {
-    if (searchCityInput.value != '') {
+    if (searchCityInput.value.trim().length) {
         getWeather(searchCityInput.value);
+        searchCityInput.value = ''; // Clear the input after search
+    } else {
+        searchCityInput.parentElement.classList.add('error');
+        callNotification('error', 'Please enter a city name');
     }
 });
 
-searchBtn.addEventListener("click", function() {
-    if (mobileSearchCityInput.value != '') {
+mobileSearchBtn.addEventListener("click", function() {
+    if (mobileSearchCityInput.value.trim().length) {
         getWeather(mobileSearchCityInput.value);
+        mobileSearchCityInput.value = ''; // Clear the input after search
+    } else {
+        mobileSearchCityInput.parentElement.classList.add('error');
+        callNotification('error', 'Please enter a city name');
     }
 });
 
 searchCityInput.addEventListener("keydown", function(event) {
-    if (event.key == 'Enter' && event.target.value !== '') {
-        getWeather(event.target.value);
+    if (event.key == 'Enter') {
+        if (event.target.value.trim().length) {
+            getWeather(event.target.value);
+            mobileSearchCityInput.value = ''; // Clear the input after search
+        } else {
+            searchCityInput.parentElement.classList.add('error');
+            callNotification('error', 'Please enter a city name');
+        }
+    }
+    
+    if (searchCityInput.parentElement.classList.contains('error') && event.target.value.trim().length) {
+        searchCityInput.parentElement.classList.remove('error');
     }
 });
 
 mobileSearchCityInput.addEventListener("keydown", function(event) {
-    if (event.key == 'Enter' && event.target.value !== '') {
-        getWeather(event.target.value);
+    if (event.key == 'Enter') {
+        if (event.target.value.trim().length) {
+            getWeather(event.target.value);
+            mobileSearchCityInput.value = ''; // Clear the input after search
+        } else {
+            callNotification('error', 'Please enter a city name');
+            mobileSearchCityInput.parentElement.classList.add('error');
+        }
+    }
+
+    if (mobileSearchCityInput.parentElement.classList.contains('error') && event.target.value.trim().length) {
+        mobileSearchCityInput.parentElement.classList.remove('error');
     }
 });
 
@@ -151,21 +212,22 @@ async function getWeather(city) {
         const data = await response.json();
 
         if (data.cod !== 200) {
-            alert(`Error: ${data.message || 'Enter the name of the City'}`);
+            callNotification('error', data.message || 'Enter the name of the City');
+            if (data.message == 'city not found' && localStorage.getItem('lastSearchedCity')) {
+                getWeather(localStorage.getItem('lastSearchedCity'));
+            }
             return;
         }
 
         renderWeather(mainBlock, mainAside, data);
+        saveLastSearch(city);
 
     } catch (error) {
-        alert(`Network error: ${error.message}`);
+        callNotification('warning', error.message);
     }
 }
 
-
-
 //cities autocomplete
-
 let cities = [];
 fetch('cities.json')
     .then(response => response.json())
@@ -202,4 +264,4 @@ document.addEventListener("click", function(event) {
 
 //cities autocomplete end
 
-getWeather('Bishkek')
+getWeather(localStorage.getItem('lastSearchedCity') || 'Bishkek'); // Default city if no last search is saved
